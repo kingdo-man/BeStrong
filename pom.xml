@@ -11,6 +11,7 @@
     <modules>
         <module>common</module>
         <module>ServletDemo</module>
+        <module>Struts</module>
     </modules>
 
     <dependencyManagement>
@@ -20,6 +21,16 @@
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>4.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.struts</groupId>
+                <artifactId>struts2-core</artifactId>
+                <version>2.5.22</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.struts.xwork</groupId>
+                <artifactId>xwork-core</artifactId>
+                <version>2.3.37</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
