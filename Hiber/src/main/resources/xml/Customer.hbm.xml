@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <!-- dynamic-insert="true" dynamic-update="true" 字段未发生变更，sql语句不会有相关字段-->
+    <class name="com.kingdoman.hiber.domain.Customer" table="t_customer"
+           dynamic-insert="true" dynamic-update="true">
+        <id name="id" column="id" type="java.lang.Integer">
+            <generator class="native"></generator>
+        </id>
+        <property name="name"></property>
+        <!-- 描述一对多 inverse:哪一方指定false指定哪一方来维护,默认false cascade:指定级联操作-->
+        <set name="orders" inverse="true" cascade="all">
+            <!-- 外键名称-->
+            <key column="customer_id"></key>
+            <one-to-many class="com.kingdoman.hiber.domain.Order"></one-to-many>
+        </set>
+    </class>
+
+</hibernate-mapping>

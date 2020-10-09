@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <!-- dynamic-insert="true" dynamic-update="true" 字段未发生变更，sql语句不会有相关字段-->
+    <class name="com.kingdoman.hiber.domain.Address1" table="t_address1">
+        <!-- address 主键又是外键 -->
+        <id name="id" column="id" type="java.lang.Integer">
+            <generator class="foreign">
+                <param name="property">company</param>
+            </generator>
+        </id>
+        <property name="name" column="name"></property>
+        <one-to-one name="company" class="com.kingdoman.hiber.domain.Company1" constrained="true"/>
+    </class>
+
+</hibernate-mapping>

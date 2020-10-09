@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <!-- dynamic-insert="true" dynamic-update="true" 字段未发生变更，sql语句不会有相关字段-->
+    <class name="com.kingdoman.hiber.domain.Order" table="t_order"
+           dynamic-insert="true" dynamic-update="true" lazy="true">
+        <id name="id" column="id" type="java.lang.Integer">
+            <generator class="native"></generator>
+        </id>
+        <property name="name"></property>
+        <!-- 描述多对一 column:外键-->
+        <!-- 多对一lazy：proxy根据类级别加载决定即上面class中的lazy还要依赖fetch false即时加载 no-proxy -->
+        <many-to-one name="customer" class="com.kingdoman.hiber.domain.Customer" column="customer_id" lazy="false"/>
+    </class>
+
+</hibernate-mapping>

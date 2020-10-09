@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <!-- dynamic-insert="true" dynamic-update="true" 字段未发生变更，sql语句不会有相关字段;lazy配置加载策略；true为懒加载-->
+    <class name="com.kingdoman.hiber.domain.Student" table="t_student" lazy="true"
+           dynamic-insert="true" dynamic-update="true">
+        <id name="sid" column="sid" type="java.lang.Integer">
+            <generator class="native"></generator>
+        </id>
+        <property name="name"></property>
+        <!-- 描述一对多 inverse:哪一方指定false指定哪一方来维护,默认false cascade:指定级联操作;batch-size每次查询学生数据条数-->
+        <set name="courses" inverse="false" cascade="all" table="t_student_course" batch-size="2">
+            <!-- 外键名称-->
+            <key column="sid"/>
+            <!-- 配置了lazy=true也是及时加载;
+                 fetch:
+                    select[默认]多条sql，
+                    join查询数据使用左外连接一条sql
+                    subselect：使用子查询(只能用于一对多或者多对多) -->
+            <many-to-many class="com.kingdoman.hiber.domain.Course" column="cid"
+                          lazy="false" fetch="join"/>
+        </set>
+    </class>
+
+</hibernate-mapping>

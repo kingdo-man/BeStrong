@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <!-- dynamic-insert="true" dynamic-update="true" 字段未发生变更，sql语句不会有相关字段-->
+    <class name="com.kingdoman.hiber.domain.Course" table="t_course"
+           dynamic-insert="true" dynamic-update="true">
+        <id name="cid" column="cid" type="java.lang.Integer">
+            <generator class="native"></generator>
+        </id>
+        <property name="name"></property>
+        <!-- 描述多对多 column:外键-->
+        <set name="students" table="t_student_course">
+            <!-- 外键名称-->
+            <key column="cid"></key>
+            <many-to-many class="com.kingdoman.hiber.domain.Student" column="sid"/>
+        </set>
+    </class>
+
+</hibernate-mapping>

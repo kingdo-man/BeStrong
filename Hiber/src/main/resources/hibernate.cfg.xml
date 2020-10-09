@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <!-- 通常，一个session-factory节点代表一个数据库 -->
+    <session-factory>
+        <!-- C3P0 -->
+        <property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.timeout">120</property>
+        <property name="automaticTestTable">Test</property>
+        <property name="hibernate.c3p0.max_statements">100</property>
+        <property name="hibernate.c3p0.idle_test_period">120</property>
+        <property name="hibernate.c3p0.acquire_increment">1</property>
+        <property name="c3p0.testConnectionOnCheckout">true</property>
+        <property name="c3p0.idleConnectionTestPeriod">18000</property>
+        <property name="c3p0.maxIdleTime">25000</property>
+        <property name="c3p0.idle_test_period">120</property>
+
+
+        <!-- 1. 数据库连接配置 -->
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/hiber</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">12345678</property>
+        <!--数据库方法配置， hibernate在运行的时候，会根据不同的方言生成符合当前数据库语法的sql-->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!-- 2. 其他相关配置 -->
+        <!-- 2.1 显示hibernate在运行时候执行的sql语句 -->
+        <property name="hibernate.show_sql">true</property>
+        <!-- 2.2 格式化sql -->
+        <property name="hibernate.format_sql">true</property>
+        <!-- 2.3 自动建表  -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <property name="hibernate.connection.autocommit">true</property>
+
+        <!-- 开启getCurrentSession -->
+        <property name="hibernate.current_session_context_class">thread</property>
+
+        <!-- 设置事务隔离级别 -->
+        <property name="hibernate.connection.isolation">4</property>
+
+        <!-- 设置二级缓存 -->
+        <property name="hibernate.cache.use_second_level_cache">true</property>
+        <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory
+        </property>
+
+        <!--3. 加载所有映射-->
+        <mapping resource="/xml/User.hbm.xml"/>
+        <mapping resource="/xml/Customer.hbm.xml"/>
+        <mapping resource="/xml/Order.hbm.xml"/>
+        <mapping resource="/xml/Student.hbm.xml"/>
+        <mapping resource="/xml/Course.hbm.xml"/>
+        <mapping resource="/xml/Company.hbm.xml"/>
+        <mapping resource="/xml/Address.hbm.xml"/>
+        <mapping resource="/xml/Company1.hbm.xml"/>
+        <mapping resource="/xml/Address1.hbm.xml"/>
+
+        <!-- 配置类缓存 -->
+        <class-cache class="com.kingdoman.hiber.domain.Student" usage="read-only"/>
+
+        <!-- 配置集合缓存 -->
+        <collection-cache collection="com.kingdoman.hiber.domain.Customer.orders" usage="read-only"/>
+
+    </session-factory>
+</hibernate-configuration>
