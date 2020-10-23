@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!-- 配置一个bean【对象】-->
+    <bean id="user" class="com.kingdoman.bestrong.spring.entity.User" init-method="myInit" destroy-method="myDestroy">
+        <!-- 依赖注入 依赖实现类中的get set方法 -->
+        <property name="name" value="张三"/>
+        <property name="password" value="123"/>
+    </bean>
+    <bean id="myBeanProcessor" class="com.kingdoman.bestrong.spring.entity.MyBeanProcessor"/>
+</beans>

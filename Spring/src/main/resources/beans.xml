@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!-- 配置一个bean【对象】-->
+    <!-- 方式一 new实现类 scope:作用域：默认单例-->
+    <bean id="userService" class="com.kingdoman.bestrong.spring.service.Impl.UserServiceImpl" scope="singleton">
+        <!-- 依赖注入 依赖实现类中的get set方法 -->
+        <property name="name" value="张三"/>
+    </bean>
+    <!-- 方式二 通过静态工厂方法 -->
+    <bean id="userService2" class="com.kingdoman.bestrong.spring.service.UserServiceFactory1"
+          factory-method="createUserService"/>
+
+    <!-- 方式三 通过实例工厂方法-->
+    <bean id="factory2" class="com.kingdoman.bestrong.spring.service.UserServiceFactory2"/>
+    <bean id="userService3" factory-bean="factory2" factory-method="createUserService"/>
+
+    <!-- bean属性注入 -->
+    <!--&lt;!&ndash; p命名空间注入 &ndash;&gt;
+    <bean id="student" class="com.kingdoman.bestrong.spring.entity.Student" p:age="22" p:name="wangwu" p:password="12321">
+        &lt;!&ndash; 相当于调用 public Student(String name, String password) {&ndash;&gt;
+        &lt;!&ndash;
+
+        <constructor-arg name="name" value="张三"></constructor-arg>
+        <constructor-arg name="password" value="1122"></constructor-arg>
+
+        &ndash;&gt;
+        &lt;!&ndash; 相当于调用 public Student(String name,  Integer age) {&ndash;&gt;
+       &lt;!&ndash; <constructor-arg name="name" value="张三"></constructor-arg>
+        <constructor-arg name="age" value="22"></constructor-arg>&ndash;&gt;
+
+        &lt;!&ndash; 通过索引加类型，给构造方法赋值 &ndash;&gt;
+       &lt;!&ndash; <constructor-arg index="0" value="lisi" type="java.lang.String"></constructor-arg>
+        <constructor-arg index="1" value="1222" type="java.lang.String"></constructor-arg>&ndash;&gt;
+
+        &lt;!&ndash; set方法注入&ndash;&gt;
+        &lt;!&ndash;<property name="name" value="李四"/>&ndash;&gt;
+
+    </bean>-->
+
+
+    <bean id="student" class="com.kingdoman.bestrong.spring.entity.Student">
+        <!-- 集合注入 -->
+        <property name="name" value="张三"/>
+        <property name="password" value="2222"/>
+        <property name="age" value="22"/>
+        <property name="courseList">
+            <list>
+                <value>语文</value>
+                <value>数学</value>
+                <value>英语</value>
+            </list>
+        </property>
+        <!-- set注入 -->
+        <property name="cars">
+            <set>
+                <value>宝马530li</value>
+                <value>ct5</value>
+                <value>帕拉梅拉</value>
+            </set>
+        </property>
+        <!-- map注入 -->
+        <property name="infos">
+            <map>
+                <entry key="身份证" value="5101"></entry>
+                <entry key="住址" value="1160"></entry>
+            </map>
+        </property>
+
+    </bean>
+
+    <!-- 开启注解-->
+    <context:annotation-config/>
+    <context:component-scan base-package="com.kingdoman.bestrong"></context:component-scan>
+</beans>
